@@ -209,7 +209,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (0,'admin','admin123','A'),(1,'customer_rep','customer_rep123','R'),(2,'test','customer','C'),(3,'ilike','flights','C');
+INSERT INTO `user` VALUES (0,'admin','admin123','A'),(1,'customer_rep','customer_rep123','R'),(2,'test','customer','C'),(3,'ilike','flights','C'),(4,'tahmeed','nikhil','C'),(5,'','','C'),(6,'new_customer','newpass','C'),(7,'customer_test','passforcustomer','C'),(8,'newcustomer','newcustomerpass','C');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -222,4 +222,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-07  7:47:16
+-- Dump completed on 2021-11-07 13:04:38
