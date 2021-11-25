@@ -135,7 +135,7 @@ CREATE TABLE `ticket` (
   `number` int NOT NULL,
   `booking_fee` float DEFAULT NULL,
   `purchase_time` datetime DEFAULT NULL,
-  `first_naime` varchar(50) DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `id_number` int DEFAULT NULL,
   `total_fare` float DEFAULT NULL,
@@ -223,3 +223,104 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2021-11-07 13:04:38
+
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (665, 'SUN, MON, WED', 100, 'AA');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (500, 'SUN, MON, TUE, WED, THU, FRI, SAT', 300, 'EK');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (173, 'FRI, SAT, SUN', 70, 'DL');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (055, 'MON, TUE, WED, THU, FRI', 50, 'DL');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (236, 'MON, TUE, WED', 150, 'CO');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (175, 'FRI, SAT, SUN', 70, 'AA');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (250, 'MON, FRI, SAT', 100, 'AC');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (180, 'FRI, SAT, SUN', 300, 'AI');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (233, 'MON, TUE, SAT', 300, 'QR');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (186, 'FRI, SAT, SUN', 70, 'DL');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (007, 'SUN, MON, TUE, WED, THU, FRI, SAT', 300, 'BA');
+INSERT INTO `aircraft`(`aircraft_id`, `operating_days`, `number_of_seats`,`airline_id`) VALUES (300, 'MON, TUE, WED', 20, 'FX');
+
+INSERT INTO `airline_company`(`airline_id`) VALUES ('FX');
+INSERT INTO `airline_company`(`airline_id`) VALUES ('AA');
+INSERT INTO `airline_company`(`airline_id`) VALUES ('CO');
+INSERT INTO `airline_company`(`airline_id`) VALUES ('EK');
+INSERT INTO `airline_company`(`airline_id`) VALUES ('DL');
+INSERT INTO `airline_company`(`airline_id`) VALUES ('AC');
+INSERT INTO `airline_company`(`airline_id`) VALUES ('AI');
+INSERT INTO `airline_company`(`airline_id`) VALUES ('QR');
+INSERT INTO `airline_company`(`airline_id`) VALUES ('BA');
+
+INSERT INTO `airport`(`airport_id`) VALUES ('EWR');
+INSERT INTO `airport`(`airport_id`) VALUES ('JFK');
+INSERT INTO `airport`(`airport_id`) VALUES ('YYZ');
+INSERT INTO `airport`(`airport_id`) VALUES ('AUH');
+INSERT INTO `airport`(`airport_id`) VALUES ('AMD');
+INSERT INTO `airport`(`airport_id`) VALUES ('AAN');
+INSERT INTO `airport`(`airport_id`) VALUES ('BOM');
+INSERT INTO `airport`(`airport_id`) VALUES ('RSW');
+INSERT INTO `airport`(`airport_id`) VALUES ('BDA');
+INSERT INTO `airport`(`airport_id`) VALUES ('LDJ');
+INSERT INTO `airport`(`airport_id`) VALUES ('LAX');
+INSERT INTO `airport`(`airport_id`) VALUES ('SFO');
+INSERT INTO `airport`(`airport_id`) VALUES ('LHR');
+
+
+INSERT INTO `flight`(`flight_number`, `departure_time`, `arrival_time`, `departure_airport`, 
+`destination_airport`, `isDomestic`, `isInternational`, `airport_id`, `aircraft_id`, 
+`airline_id`) 
+VALUES ('1', '2021-11-27 09:00:00', '2021-11-27 13:30:00', 'Newark Liberty Intl airport', 
+'Toronto Pearson Intl airport', 0, 1, 'EWR', 250, 'AC');
+INSERT INTO `flight`(`flight_number`, `departure_time`, `arrival_time`, `departure_airport`, 
+`destination_airport`, `isDomestic`, `isInternational`, `airport_id`, `aircraft_id`, 
+`airline_id`) 
+VALUES ('2', '2021-12-01 13:00:00', '2021-12-02 20:30:00', 'Newark Liberty Intl airport', 
+'Abu Dhabi Intl Airport', 0, 1, 'EWR', 500, 'EK');
+INSERT INTO `flight`(`flight_number`, `departure_time`, `arrival_time`, `departure_airport`, 
+`destination_airport`, `isDomestic`, `isInternational`, `airport_id`, `aircraft_id`, 
+`airline_id`) 
+VALUES ('3', '2022-01-22 14:00:00', '2022-01-22 16:30:00', 'Newark Liberty Intl airport', 
+'Los Angeles Intl Airport', 1, 0, 'EWR', 665, 'AA');
+INSERT INTO `flight`(`flight_number`, `departure_time`, `arrival_time`, `departure_airport`, 
+`destination_airport`, `isDomestic`, `isInternational`, `airport_id`, `aircraft_id`, 
+`airline_id`) 
+VALUES ('4', '2022-03-15 10:00:00', '2022-03-16 13:30:00', 'John F. Kennedy Intl Airport', 
+'Bombay Intl Airport', 0, 1, 'EWR', 180, 'AI');
+INSERT INTO `flight`(`flight_number`, `departure_time`, `arrival_time`, `departure_airport`, 
+`destination_airport`, `isDomestic`, `isInternational`, `airport_id`, `aircraft_id`, 
+`airline_id`) 
+VALUES ('5', '2022-01-01 10:00:00', '2022-01-01 12:30:00', 'John F. Kennedy Intl Airport', 
+'Southwest Florida Intl Airport', 1, 0, 'EWR', 173, 'DL');
+INSERT INTO `flight`(`flight_number`, `departure_time`, `arrival_time`, `departure_airport`, 
+`destination_airport`, `isDomestic`, `isInternational`, `airport_id`, `aircraft_id`, 
+`airline_id`) 
+VALUES ('6', '2022-01-01 10:00:00', '2022-01-01 18:45:00', 'John F. Kennedy Intl Airport', 
+'Heathrow Intl Airport', 0, 1, 'EWR', 007, 'BA');
+
+INSERT INTO `ticket`(`number`, `booking_fee`, `purchase_time`, `first_name`, `last_name`, `id_number`, 
+`total_fare`, `isOne_way`, `isRound_trip`)
+VALUES(44, 45.50, '2021-11-20 11:33:33', 'John', 'Doe', 4430, 753.60, 1, 0);
+INSERT INTO `ticket`(`number`, `booking_fee`, `purchase_time`, `first_name`, `last_name`, `id_number`, 
+`total_fare`, `isOne_way`, `isRound_trip`)
+VALUES(55, 46.50, '2021-11-21 12:33:34', 'Joe', 'Smith', 4543, 754.60, 0, 1);
+INSERT INTO `ticket`(`number`, `booking_fee`, `purchase_time`, `first_name`, `last_name`, `id_number`, 
+`total_fare`, `isOne_way`, `isRound_trip`)
+VALUES(66, 47.50, '2021-11-22 13:33:35', 'Ashley', 'Kirk', 4222, 755.60, 0, 1);
+INSERT INTO `ticket`(`number`, `booking_fee`, `purchase_time`, `first_name`, `last_name`, `id_number`, 
+`total_fare`, `isOne_way`, `isRound_trip`)
+VALUES(77, 48.50, '2021-11-23 13:33:36', 'Anna', 'Lian', 5686, 756.60, 1, 0);
+
+INSERT INTO `ticket_for`(`number`, `flight_number`, `class`, `destination_airport`, `seat_number`, `airline`, 
+`departure_time`)
+VALUES(44, 3, 'AA', 'Business', 'Los Angeles Intl Airport', 'Newark Liberty Intl Airport', 15, 
+'American Airlines', '2022-01-22 14:00:00');
+INSERT INTO `ticket_for`(`number`, `flight_number`, `class`, `destination_airport`, `seat_number`, `airline`, 
+`departure_time`)
+VALUES(55, 1, 'AC', 'Economy', 'Toronto Pearson Intl Airport', 'Newark Liberty Intl Airport', 85, 
+'Air Canada', '2021-11-27 09:00:00');
+INSERT INTO `ticket_for`(`number`, `flight_number`, `class`, `destination_airport`, `seat_number`, `airline`, 
+`departure_time`)
+VALUES(66, 2, 'EK', 'First', 'Abu Dhabi Intl Airport', 'Newark Liberty Intl Airport', 5, 
+'Emirates', '2021-12-01 13:00:00');
+INSERT INTO `ticket_for`(`number`, `flight_number`, `class`, `destination_airport`, `seat_number`, `airline`, 
+`departure_time`)
+VALUES(77, 5, 'DL', 'Economy', 'Southwest Florida Intl Airport', 'John F. Kennedy Intl Airport', 105, 
+'Delta Airlines', '2022-01-01 10:00:00');
+
+
