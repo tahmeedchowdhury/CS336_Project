@@ -30,11 +30,32 @@ Generate Reservations by Flight Number: <input type="text" name="fnum"/>
 Generate Reservations by Customer Name: First Name: <input type="text" name="fname"/> Last Name: <input type="text" name="lname"/> 
 <input type="submit" name="command" value="Generate By Customer Name"/>
 <br/>
-Generate Summary Revenue from a Flight: <input type="text" name="fnum2"/> 
+Generate Summary Revenue from a Flight(Enter Flight Number): <input type="text" name="fnum2"/> 
 <input type="submit" name="command" value="Generate Flight Revenue"/>
+<br/>
+Generate Summary Revenue from an Airline(Enter Airline ID): <input type="text" name="airline_id"/> 
+<input type="submit" name="command" value="Generate Airline Revenue"/>
+<br/>
+<%
+ApplicationDB db0 = new ApplicationDB();
+Connection con0 = db0.getConnection();
+Statement st0 = con0.createStatement();
+ResultSet res0 = st0.executeQuery("select * from airline_company");
+out.print("The following is a list of available airlines: ");
+while(res0.next()) {
+	out.print(res0.getString("airline_id") + ", ");
+}
+%>
+<br/>
+Generate Revenue from a Customer(Enter Customer ID): <input type="text" name="customer_id">
+<input type="submit" name="command" value="Generate Customer Revenue"/>
+<br/>
+Find Customer Who Generated Most Revenue: <input type="submit" name="command" value="Find Customer"/>
+<br/>
+Generate List of 3 Most Active Flights: <input type="submit" name="command" value="Generate List"/>
 </form>
 <br/>
-The following are all users available on the platform that can be manipulated:
+The following are all users available on the platform:
 <br/>
 <%
 ApplicationDB db = new ApplicationDB();	

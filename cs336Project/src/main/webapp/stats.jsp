@@ -84,18 +84,105 @@ else if(request.getParameter("command").equals("Generate Flight Revenue")) {
 	Statement st = con.createStatement();
 	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.number = tf.number where flight_number =" + fnum);
 	double total = 0;
-	int count = 0;
 	while(res.next()) {
-		count++;
 		total = total + Double.valueOf(res.getString("total_fare"));
+		out.print("The revenue from ticket number " + res.getString("number") + " is " + res.getString("total_fare")); %>
+		<br/>
+		<%
 	}
 	out.print("The total revenue for this Flight is: " + total);
 	%>
 	<br/>
 	<%
-	out.print("The number of tickets purchased for this flight is: " + count);
 	%>
 	<br/>
+	<a href="admin_home.jsp">Return Home</a>
+	<%
+}
+else if(request.getParameter("command").equals("Generate Airline Revenue")) {
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();
+	String airline_id = request.getParameter("airline_id");
+	Statement st = con.createStatement();
+	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.number = tf.number where tf.airline_id='" + airline_id + "'");
+	double total = 0;
+	while(res.next()) {
+		total = total + Double.valueOf(res.getString("total_fare"));
+		out.print("The revenue from ticket number " + res.getString("number") + " is " + res.getString("total_fare")); %>
+		<br/>
+		<% 
+	}
+	out.print("The total revenue for this Airline company is: " + total);
+	%>
+	<br/>
+	<%
+	%>
+	<br/>
+	<a href="admin_home.jsp">Return Home</a>
+	<%
+}
+else if(request.getParameter("command").equals("Generate Customer Revenue")) {
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();
+	String customer_id = request.getParameter("customer_id");
+	Statement st = con.createStatement();
+	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.number = tf.number where t.id_number=" + customer_id);
+	double total = 0;
+	while(res.next()) {
+		total = total + Double.valueOf(res.getString("total_fare"));
+		out.print("The revenue from ticket number " + res.getString("number") + " is " + res.getString("total_fare")); %>
+		<br/>
+		<% 
+	}
+	out.print("The total revenue for this Customer is: " + total);
+	%>
+	<br/>
+	<%
+	%>
+	<br/>
+	<a href="admin_home.jsp">Return Home</a>
+	<%
+}
+else if(request.getParameter("command").equals("Find Customer")) {
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();
+	Statement st = con.createStatement();
+	ResultSet res = st.executeQuery("select u.id,t.first_name,t.last_name, sum(t.total_fare) as sum from user u join ticket t on t.id_number = u.id");
+	String fname = "";
+	String lname = "";
+	String id = "";
+	double fare = 0;
+	while(res.next()) {
+		if(Integer.parseInt(res.getString("sum")) > fare) {
+			fname = res.getString("first_name");
+			lname = res.getString("last_name");
+			id = res.getString("id");
+			fare = Integer.parseInt(res.getString("sum"));
+		}
+	}
+	out.print("The Customer who generated the most revenue is " + fname + " " + lname + "(id: " + id + ") with a total of " + fare);
+	%>
+	<br/>
+	<%
+	%>
+	<br/>
+	<a href="admin_home.jsp">Return Home</a>
+	<%
+	
+}
+else if(request.getParameter("command").equals("Generate List")) {
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();
+	Statement st = con.createStatement();
+	ResultSet res = st.executeQuery("select f.flight_number, f.airline_id, f.departure_airport, f.destination_airport, count(f.flight_number and f.airline_id) as count from flight f join ticket_for tf on f.flight_number = tf.flight_number and f.airline_id = tf.airline_id group by f.flight_number order by count desc");
+	int count = 1;
+	while(res.next() && count < 4) {
+		out.print(count + ": " + "Flight Number " + res.getString("flight_number") + " going from " + res.getString("departure_airport") + " to " + res.getString("destination_airport") + " with a total of " + res.getString("count") + " ticket(s)"); %>
+		<br/>
+		<%
+		count++;
+	}
+	%>
 	<a href="admin_home.jsp">Return Home</a>
 	<%
 }
