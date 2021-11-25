@@ -13,9 +13,9 @@
 <p> Please select an option below </p>
 <br/>
 <a href="flights.jsp">Flights</a>
-<br/>
-<a href='logout.jsp'>Log out</a>
 <br />
 <a href = "questions.jsp">Questions for the Customer Representative</a>
+<br/>
+<a href='logout.jsp'>Log out</a>
 </body>
 </html>

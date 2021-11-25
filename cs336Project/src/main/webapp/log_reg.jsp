@@ -25,6 +25,7 @@ if(request.getParameter("command").equals("Log In")) {
 	 if(res.next()) {
 		 session.setAttribute("user", un);
 		 session.setAttribute("id",res.getString("id"));
+		 session.setAttribute("type",res.getString("type"));
 		 out.println("welcome " + un);
 		 out.println("<a href='logout.jsp'>Log out</a>");
 	     response.sendRedirect("loggedin.jsp");
