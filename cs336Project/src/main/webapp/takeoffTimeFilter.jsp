@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
@@ -10,15 +10,15 @@
 </head>
 <body>
 
-<% 
-try {
-	//Get the database connection
-	ApplicationDB db = new ApplicationDB();	
-	Connection con = db.getConnection();
+<%
+	try {
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
 		//Create a SQL statement
-	Statement stmt = con.createStatement();
-	String airlineCompany = request.getParameter("airline");
-	String str = "SELECT * FROM flight where airline_id = '" + airlineCompany + "'";
+		Statement stmt = con.createStatement();
+	String takeOff = request.getParameter("takeoffTime");
+	String str = "SELECT * FROM flight where TIME(departure_time) = '" + takeOff + "'";
  	ResultSet res = stmt.executeQuery(str);
 	while(res.next()) {
 						out.print("Flight Number: " + res.getString("flight_number")); %>
@@ -56,5 +56,7 @@ catch (Exception e) {
 	out.print(e);
 }
 %>
+
+
 </body>
 </html>

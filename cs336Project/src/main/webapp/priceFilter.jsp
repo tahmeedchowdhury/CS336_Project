@@ -17,15 +17,12 @@
 
 	<%
 	try {
-
 		//Get the database connection
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();
-
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
-
-	float price = Float.valueOf(request.getParameter("price");
+	float price = Float.valueOf(request.getParameter("price"));
 	String str = "SELECT * FROM flight where price = " + price;
  	ResultSet res = stmt.executeQuery(str);
 	while(res.next()) {
@@ -54,6 +51,7 @@
 						<br />
 						<%out.println("Price: " + res.getString("price")); %>
 						<br />
+						<br />
 						<% 
 					}
 db.closeConnection(con);
@@ -63,6 +61,5 @@ catch (Exception e) {
 	out.print(e);
 }
 %>
-
 </body>
 </html>

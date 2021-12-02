@@ -1,13 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
@@ -24,14 +15,12 @@ try {
 	
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
-
 				// taking care of the price sort
 			if (request.getParameter("sort_type").equals("price")) {
 				Statement stmt = con.createStatement();
 				String str = "SELECT * FROM flight ORDER BY price";
 				//Run the query against the database.
-				ResultSet result = stmt.executeQuery(str);
-
+				ResultSet res = stmt.executeQuery(str);
 				while(res.next()) {
 						out.print("Flight Number: " + res.getString("flight_number")); %>
 						<br/>
@@ -56,14 +45,17 @@ try {
 						<br/>
 						<%out.println("Aircraft: " + res.getString("aircraft_id")); %>
 						<br />
+						<%out.println("Price: " + res.getString("price")); %>
+						<br />
 						<br />
 						<% 
 					}
-		else if(request.getParameter("sort_type").equals("take-off time") {
+				}
+		else if(request.getParameter("sort_type").equals("take-off time")) {
 				Statement stmt = con.createStatement();
-				String str = "SELECT * FROM flight ORDER BY departure_time";
+				String str = "SELECT * FROM flight ORDER BY TIME(departure_time)";
 				//Run the query against the database.
-				ResultSet result = stmt.executeQuery(str);
+				ResultSet res = stmt.executeQuery(str);
 				while(res.next()) {
 						out.print("Flight Number: " + res.getString("flight_number")); %>
 						<br/>
@@ -88,14 +80,18 @@ try {
 						<br/>
 						<%out.println("Aircraft: " + res.getString("aircraft_id")); %>
 						<br />
+						<%out.println("Price: " + res.getString("price")); %>
+						<br />
 						<br />
 						<% 
 					}
-	else if(request.getParamter("sort_type").equals("landing time") {
+				
+		}
+	else if(request.getParameter("sort_type").equals("landing_time")) {
 				Statement stmt = con.createStatement();
-				String str = "SELECT * FROM flight ORDER BY arrival_time";
+				String str = "SELECT * FROM flight ORDER BY TIME(arrival_time)";
 				//Run the query against the database.
-				ResultSet result = stmt.executeQuery(str);
+				ResultSet res = stmt.executeQuery(str);
 				while(res.next()) {
 						out.print("Flight Number: " + res.getString("flight_number")); %>
 						<br/>
@@ -120,14 +116,17 @@ try {
 						<br/>
 						<%out.println("Aircraft: " + res.getString("aircraft_id")); %>
 						<br />
+						<%out.println("Price: " + res.getString("price")); %>
+						<br />
 						<br />
 						<% 
 					}
-	else {
+		}
+		else {
 				Statement stmt = con.createStatement();
-				String str = "SELECT * FROM flight ORDER BY flight_duration";
+				String str = "SELECT * FROM flight ORDER BY TIMEDIFF(arrival_time, departure_time)";
 				//Run the query against the database.
-				ResultSet result = stmt.executeQuery(str);
+				ResultSet res = stmt.executeQuery(str);
 				while(res.next()) {
 						out.print("Flight Number: " + res.getString("flight_number")); %>
 						<br/>
@@ -152,19 +151,20 @@ try {
 						<br/>
 						<%out.println("Aircraft: " + res.getString("aircraft_id")); %>
 						<br />
+						<%out.println("Price: " + res.getString("price")); %>
+						<br />
 						<br />
 						<% 
 					}
+		
+			}
+				
 		db.closeConnection(con);
-	
+				
 }
 catch (Exception e) {
 	out.print(e);
 }
 %>
-
-</body>
-</html>
-
 </body>
 </html>
