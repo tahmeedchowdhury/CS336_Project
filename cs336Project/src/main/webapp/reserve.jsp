@@ -9,6 +9,20 @@
 <title>Reserve A Flight</title>
 </head>
 <body>
-<h1>Reserve A Flight by selecting the flight you want to reserve below.</h1>
+<form method="post" action=make_reservation.jsp>
+Please enter the number of flights you are reserving right now: <input type="number" min=1 max=5 step=1 name="num"/> Trip type(0 for One Way, 1 for Round Trip): <input type="number" min=0 max=1 step=1 name="type"/>
+<br/>
+Please select your class:
+<select name='class'>
+<option value='first'>First</option>
+<option value='business'>Business</option>
+<option value='economy'>Economy</option>
+</select>
+<input type="submit" name="command" value="Make Reservations"/>
+<br/>
+<br/>
+Note that you can have a maximum of 5 flights per ticket. Please indicate 2 flights for a round trip, and more if you would like a round trip with
+stops or a one way trip with stops. Also note that not inputting a trip type assumes the trip is a One Way.
+</form>
 </body>
 </html>

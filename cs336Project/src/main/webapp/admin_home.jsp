@@ -64,7 +64,7 @@ Statement st = con.createStatement();
 ResultSet res = st.executeQuery("select * from user");
 while(res.next()) {
 	if(!res.getString("type").equals("A")) { %>
-	<% out.println("User Id: " + res.getString("id") + " | " + "Username: " + res.getString("username") + " | " + "Password: " + res.getString("password") + " | " + "User type: " + res.getString("type")); %>
+	<% out.println("User Id: " + res.getString("id") + " | " + "Username: " + res.getString("username") + " | " + "Password: " + res.getString("password") + " | " + "User type: " + res.getString("type") + " | " + "User First Name: " + res.getString("first_name") + " | " + "User Last Name: " + res.getString("last_name")); %>
 	<br/>
 	<%		
 	}

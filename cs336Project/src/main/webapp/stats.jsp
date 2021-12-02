@@ -39,7 +39,7 @@ else if(request.getParameter("command").equals("Generate By Customer Name")) {
 	String fname = request.getParameter("fname");
 	String lname = request.getParameter("lname");
 	Statement st = con.createStatement();
-	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.first_name='" + fname + "' and t.last_name='" + lname + "' and t.number = tf.number");
+	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf using(number) where t.first_name='" + fname + "' and t.last_name='" + lname + "'");
 	out.print("The following are the reservations made by: " + fname + " " + lname);
 	%>
 	<br/>
@@ -50,6 +50,7 @@ else if(request.getParameter("command").equals("Generate By Customer Name")) {
 	<%
 	while(res.next()) {
 		%>
+		<br/>
 		<br/>
 		<%
 		for(int i = 1; i <= cols; i++) {
@@ -147,18 +148,16 @@ else if(request.getParameter("command").equals("Find Customer")) {
 	ApplicationDB db = new ApplicationDB();
 	Connection con = db.getConnection();
 	Statement st = con.createStatement();
-	ResultSet res = st.executeQuery("select u.id,t.first_name,t.last_name, sum(t.total_fare) as sum from user u join ticket t on t.id_number = u.id");
+	ResultSet res = st.executeQuery("select * from (select t.first_name, t.last_name, t.id,sum(t.total_fare) as sum from ticket t group by t.first_name) as totals where sum = (select max(sum) from (select t.first_name, t.last_name, t.id,sum(t.total_fare) as sum from ticket t group by t.first_name) as totals)");
 	String fname = "";
 	String lname = "";
 	String id = "";
 	double fare = 0;
 	while(res.next()) {
-		if(Integer.parseInt(res.getString("sum")) > fare) {
 			fname = res.getString("first_name");
 			lname = res.getString("last_name");
 			id = res.getString("id");
 			fare = Integer.parseInt(res.getString("sum"));
-		}
 	}
 	out.print("The Customer who generated the most revenue is " + fname + " " + lname + "(id: " + id + ") with a total of " + fare);
 	%>

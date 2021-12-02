@@ -10,9 +10,11 @@
 </head>
 <body>
 <a href="home.jsp">Return Home</a>
-<br />
-<p>The following is a list of all available flights. </p>
-<br />
+<br/>
+<p>The following is a list of all available flights.</p>
+<br/>
+<a href="reserve.jsp">Make A Flight Reservation</a>
+<br/>
 <br/>
 <% 
 ApplicationDB db = new ApplicationDB();	
@@ -21,6 +23,8 @@ Statement st = con.createStatement();
 ResultSet res = st.executeQuery("select * from flight");
 while(res.next()) {
 	out.print("Flight Number: " + res.getString("flight_number")); %>
+	<br/>
+	<%out.println("Price: $" + res.getString("price")); %>
 	<br/>
 	<%out.println("Departure Time: " + res.getString("departure_time")); %> 
 	<br/>

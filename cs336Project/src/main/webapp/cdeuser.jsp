@@ -20,11 +20,12 @@ if(command.equals("Create User")) {
 	Please enter the username, password, and type of user to create below:
 	<br/>
 	Username: <input type="text" name="username"/>
-	<br/>
 	Password: <input type="text" name="password"/>
 	<br/>
 	Type(Either R for Representative or C for Customer): <input type="text" name="type"/>
 	<br/>
+	First Name: <input type="text" name="fname"/>
+	Last Name: <input type="text" name="lname"/>
 	<input type="submit" name="command" value ="Create"/>
 	<br/>
 	<a href="admin_home.jsp">Return Home</a>
@@ -44,6 +45,9 @@ else if(command.equals("Edit User")) {
 	<br/>
 	Change Type(Either R for Representative or C for Customer) to: <input type="text" name="type"/>
 	<br/>
+	Change First Name: <input type="text" name="fname"/>
+	<br/>
+	Change Last Name: <input type="text" name="lname"/>
 	<input type="submit" name="command" value ="Edit"/>
 	<br/>
 	<a href="admin_home.jsp">Return Home</a>

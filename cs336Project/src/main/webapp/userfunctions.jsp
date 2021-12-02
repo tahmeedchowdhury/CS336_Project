@@ -29,11 +29,13 @@ String newid = "";
 while(res.next()) {
 	newid = String.valueOf(Integer.parseInt(res.getString("id")) + 1);
 } 
-PreparedStatement ps = con.prepareStatement("insert into user(id,username,password,type)" + "Values (?,?,?,?)");
+PreparedStatement ps = con.prepareStatement("insert into user(id,username,password,type,first_name,last_name)" + "Values (?,?,?,?,?,?)");
 ps.setString(1,newid);
 ps.setString(2,request.getParameter("username"));
 ps.setString(3,request.getParameter("password"));
 ps.setString(4,request.getParameter("type"));
+ps.setString(5,request.getParameter("fname"));
+ps.setString(6,request.getParameter("lname"));
 ps.executeUpdate();
 }
 }
@@ -75,6 +77,27 @@ else if(request.getParameter("command").equals("Edit")) {
 		ps.setString(1,request.getParameter("type"));
 		ps.setString(2,id);
 		ps.executeUpdate();
+	}
+	if(!request.getParameter("fname").equals("")) {
+		PreparedStatement ps = con.prepareStatement("update user set first_name = ? where id = ?");
+		ps.setString(1,request.getParameter("fname"));
+		ps.setString(2,id);
+		ps.executeUpdate();
+		PreparedStatement ps2 = con.prepareStatement("update ticket set first_name = ? where id = ?");
+		ps2.setString(1,request.getParameter("fname"));
+		ps2.setString(2,id);
+		ps2.executeUpdate();
+	}
+	if(!request.getParameter("lname").equals("")) {
+		PreparedStatement ps = con.prepareStatement("update user set last_name = ? where id = ?");
+		ps.setString(1,request.getParameter("lname"));
+		ps.setString(2,id);
+		ps.executeUpdate();
+		PreparedStatement ps2 = con.prepareStatement("update ticket set last_name = ? where id = ?");
+		ps2.setString(1,request.getParameter("lname"));
+		ps2.setString(2,id);
+		ps2.executeUpdate();
+		
 	}
 	%>
 	The user has been edited.
