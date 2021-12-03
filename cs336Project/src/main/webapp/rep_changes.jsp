@@ -260,20 +260,30 @@ else if(request.getParameter("command").equals("Retrieve Waiting List")) {
 	Connection con = db.getConnection();
 	Statement st = con.createStatement();
 	String fnum = request.getParameter("fnum");
-	ResultSet res = st.executeQuery("select first_name,second_name from waiting_list where flight_number = " + fnum);
+	String id = request.getParameter("id");
+	ResultSet res = st.executeQuery("select * from waiting_list where flight_number = " + fnum + " and airline_id = '" + id + "'");
+	ArrayList<Integer> ids = new ArrayList<Integer>();
+	while(res.next()) {
+		ids.add(res.getInt("id"));
+	}
+	Statement st2 = con.createStatement();
 	out.print("The following customers are on the waiting list for this particular flight");
 	try {
-		while(res.next()) {
+		for(int i = 0; i < ids.size();i++) {
 			%>
 			<br/>
 			<%
-			out.print(res.getString("first_name") + " " + res.getString("last_name"));
+			ResultSet name = st2.executeQuery("select * from user where id =" + ids.get(i));
+			name.next();
+			out.print(name.getString("first_name") + " " + name.getString("last_name") + "(ID: " + name.getString("id") + ")");
 		}
 		%>
+		<br/>
 		<a href = "rep_home.jsp">Return Home</a>
 		<%
 	}
 	catch(Exception e) {
+		e.printStackTrace();
 		out.print("Sorry, but the Waiting List for this Flight cannot be retreived. Please check that the Flight Number was correct."); %>
 		<a href = "rep_home.jsp">Return Home</a>
 		<%
@@ -299,6 +309,7 @@ else if(request.getParameter("command").equals("Produce List")) {
 			}
 		}
 		%>
+		<br/>
 		<a href = "rep_home.jsp">Return Home</a>
 		<%
 	}
@@ -324,6 +335,57 @@ else if(request.getParameter("command").equals("Answer Question")) {
 	}
 	catch(Exception e) {
 		out.print("Sorry, the question with the ID provided cannot be answered. Please make sure it is the correct ID."); %>
+		<a href="rep_home.jsp">Return Home</a>
+		<%
+	}
+}
+
+else if(request.getParameter("command").equals("Edit Reservation")) {
+	ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();
+	Statement st = con.createStatement();
+	String number = request.getParameter("number");
+	String cl = request.getParameter("class");
+	String total_fare = request.getParameter("total_fare");
+	String booking_fee = request.getParameter("fee");
+	String seatnum = request.getParameter("seatnum");
+	String fnum = request.getParameter("fnum");
+	String id = request.getParameter("id");
+	String purchase_date = request.getParameter("purchase_date");
+	try {
+	if(!cl.equals("")) {
+		PreparedStatement ps = con.prepareStatement("update ticket_for set class ='" + cl + "' where number=" + number + " and flight_number =" + fnum + " and airline_id = '" + id + "'");
+		ps.executeUpdate();
+	}
+	if(!total_fare.equals("")) {
+		PreparedStatement ps1 = con.prepareStatement("update ticket set total_fare =" + total_fare + " where number=" + number);
+		ps1.executeUpdate();
+	}
+	
+	if(!booking_fee.equals("")) {
+		PreparedStatement ps2 = con.prepareStatement("update ticket set total_fare = (total_fare - booking_fee)  where number=" + number);
+		PreparedStatement ps3 = con.prepareStatement("update ticket set booking_fee=" + booking_fee + " where number=" + number);
+		PreparedStatement ps4 = con.prepareStatement("update ticket set total_fare= (total_fare + booking_fee) where number=" + number);
+		ps2.executeUpdate();
+		ps3.executeUpdate();
+		ps4.executeUpdate();
+	}
+	if(!seatnum.equals("")) {
+		PreparedStatement ps5 = con.prepareStatement("update ticket_for set seat_number =" + seatnum + " where number=" + number + " and flight_number = " + fnum + " and airline_id ='" + id + "'");
+		ps5.executeUpdate();
+	}
+	if(!purchase_date.equals("")) {
+		PreparedStatement ps6 = con.prepareStatement("update ticket set purchase_time =" + purchase_date + " where number=" + number);
+		ps6.executeUpdate();
+	}
+	out.print("Changes have been made."); %>
+	<a href="rep_home.jsp">Return Home</a>
+	<%
+}
+	catch(Exception e) {
+		e.printStackTrace();
+		out.print("Sorry, Something went wrong. Please check that the information you were trying to change is correct and formatted properly."); %>
+		<br/>
 		<a href="rep_home.jsp">Return Home</a>
 		<%
 	}

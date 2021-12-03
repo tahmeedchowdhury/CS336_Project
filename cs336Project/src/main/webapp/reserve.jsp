@@ -23,6 +23,14 @@ Please select your class:
 <br/>
 Note that you can have a maximum of 5 flights per ticket. Please indicate 2 flights for a round trip, and more if you would like a round trip with
 stops or a one way trip with stops. Also note that not inputting a trip type assumes the trip is a One Way.
+<%
+if(session.getAttribute("type").equals("R")) {%>
+	<input type="hidden" name="fname" value=<%=request.getParameter("fname")%> />
+	<input type="hidden" name="lname" value=<%=request.getParameter("lname")%> />
+	<input type="hidden" name="id" value=<%=request.getParameter("id")%> />
+	<%
+}
+%>
 </form>
 </body>
 </html>
