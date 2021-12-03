@@ -218,7 +218,7 @@ try {
 	st10.executeUpdate("create temporary table a1 select * from flight where departure_time like '" + departure_date + "%' and departure_airport = '" + departure_airport + "' and destination_airport <> '" + arrival_airport + "'");
 	st11.executeUpdate("create temporary table a2 select * from flight where destination_airport <> '" + arrival_airport + "'");
 	st12.executeUpdate("create temporary table a3 select * from flight where destination_airport = '" + arrival_airport + "'");
-	ResultSet res4 = st13.executeQuery("select * from a1, a2, a3 where a1.destination_airport = a2.departure_airport and a2.departure_time > a1.arrival_time and a2.destination_airport = a3.destination_airport and a3.departure_time > a2.arrival_time"); 
+	ResultSet res4 = st13.executeQuery("select * from a1, a2, a3 where a1.destination_airport = a2.departure_airport and a2.departure_time > a1.arrival_time and a2.destination_airport = a3.departure_airport and a3.departure_time > a2.arrival_time"); 
 	
 	Statement st14 = con.createStatement();
 	Statement st15 = con.createStatement();
@@ -227,7 +227,7 @@ try {
 	st14.executeUpdate("create temporary table b1 select * from flight where departure_time like '" + return_date + "%' and departure_airport = '" + arrival_airport + "' and destination_airport <> '" + departure_airport + "'");
 	st15.executeUpdate("create temporary table b2 select * from flight where destination_airport <> '" + departure_airport + "'");
 	st16.executeUpdate("create temporary table b3 select * from flight where destination_airport = '" + departure_airport + "'");
-	ResultSet res5 = st17.executeQuery("select * from b1, b2, b3 where b1.destination_airport = b2.departure_airport and b2.departure_time > b1.arrival_time and b2.destination_airport = b3.destination_airport and b3.departure_time > b2.arrival_time");%>
+	ResultSet res5 = st17.executeQuery("select * from b1, b2, b3 where b1.destination_airport = b2.departure_airport and b2.departure_time > b1.arrival_time and b2.destination_airport = b3.departure_airport and b3.departure_time > b2.arrival_time");%>
 	
 	<p>Two Stop Flights</p>
 	
