@@ -45,6 +45,20 @@ Filter by price:
 		</form>
 	<br>
 
+Filter by number of stops: 
+<br>
+		<form method="get" action="numOfStopsFilter.jsp">
+			<table>
+				<tr>   
+					<td>Departure Airport</td><td><input type="text" name="depart_airport"></td>
+					<td>Arrival Airport</td><td><input type="text" name="dest_airport"></td>
+					<td>Number of Stops</td><td><input type="text" name="numOfStops"></td>
+				</tr>
+			</table>
+			<input type="submit" value="Search Flights!">
+		</form>
+	<br>
+
 Filter by airline: 
 <br>
 		<form method="get" action="airlineFilter.jsp">
@@ -62,7 +76,7 @@ Filter by take-off time:
 		<form method="get" action="takeoffTimeFilter.jsp">
 			<table>
 				<tr>    
-					<td>Departure Time</td><td><input type="text" name="takeoffTime"></td>
+					<td>Departure Time</td><td><input type="time" name="takeoffTime"></td>
 				</tr>
 			</table>
 			<input type="submit" value="Search Flights!">

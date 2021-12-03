@@ -16,7 +16,6 @@ try {
 	ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();
 	Statement st = con.createStatement();
-	String departure_date = request.getParameter("depart_date");
 	String departure_airport = request.getParameter("depart_airport");
 	String arrival_airport = request.getParameter("dest_airport");
 	
@@ -24,7 +23,7 @@ try {
 	if (request.getParameter("numOfStops").equals("0")) {	
 		
 	
-		ResultSet res = st.executeQuery("select * from flight where departure_time like '" + departure_date + "%' and departure_airport = '" + departure_airport + "' and destination_airport = '" + arrival_airport + "'");
+		ResultSet res = st.executeQuery("select * from flight where departure_airport = '" + departure_airport + "' and destination_airport = '" + arrival_airport + "'");
 		%>
 		
 		<p> Non-Stop Flights </p>
@@ -66,7 +65,7 @@ try {
 		Statement st1 = con.createStatement();
 		Statement st2 = con.createStatement();
 		Statement st3 = con.createStatement();
-		st1.executeUpdate("create temporary table t1 select * from flight where departure_time like '" + departure_date + "%' and departure_airport = '" + departure_airport + "' and destination_airport <> '" + arrival_airport + "'");
+		st1.executeUpdate("create temporary table t1 select * from flight departure_airport = '" + departure_airport + "' and destination_airport <> '" + arrival_airport + "'");
 		st2.executeUpdate("create temporary table t2 select * from flight where destination_airport = '" + arrival_airport + "'");
 		ResultSet res2 = st3.executeQuery("select * from t1, t2 where t1.destination_airport = t2.departure_airport and t2.departure_time > t1.arrival_time"); %>
 		
@@ -136,7 +135,7 @@ try {
 		Statement st5 = con.createStatement();
 		Statement st6 = con.createStatement();
 		Statement st7 = con.createStatement();
-		st4.executeUpdate("create temporary table s1 select * from flight where departure_time like '" + departure_date + "%' and departure_airport = '" + departure_airport + "' and destination_airport <> '" + arrival_airport + "'");
+		st4.executeUpdate("create temporary table s1 select * from flight where departure_airport = '" + departure_airport + "' and destination_airport <> '" + arrival_airport + "'");
 		st5.executeUpdate("create temporary table s2 select * from flight where destination_airport <> '" + arrival_airport + "'");
 		st6.executeUpdate("create temporary table s3 select * from flight where destination_airport = '" + arrival_airport + "'");
 		ResultSet res3 = st7.executeQuery("select * from s1, s2, s3 where s1.destination_airport = s2.departure_airport and s2.departure_time > s1.arrival_time and s2.destination_airport = s3.destination_airport and s3.departure_time > s2.arrival_time"); %>
