@@ -35,6 +35,10 @@
 <input type="submit" name="command" value="Cancel A Reservation"/>
 </form>
 <br/>
+<form method="post" action=filterhome.jsp>
+<input type="submit" name="command" value="Sort/Filter Flights"/>
+</form>
+<br/>
 <a href='logout.jsp'>Log out</a>
 <br/>
 <br/>

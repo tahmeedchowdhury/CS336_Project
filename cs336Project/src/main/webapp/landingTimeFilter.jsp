@@ -17,7 +17,7 @@ try {
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	String land = request.getParameter("landingTime");
-	String str = "SELECT * FROM flight where TIME(arrival_time) = '" + land + "'";
+	String str = "SELECT * FROM flight WHERE TIME(arrival_time) = '" + land + "'";
  	ResultSet res = stmt.executeQuery(str);
 	while(res.next()) {
 			out.print("Flight Number: " + res.getString("flight_number")); %>
