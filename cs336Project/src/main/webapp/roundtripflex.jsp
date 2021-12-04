@@ -397,10 +397,7 @@ try {
 	
 	
 	db.closeConnection(con);
-
 }
-
-
 catch (Exception e) {
 	out.print(e);
 }

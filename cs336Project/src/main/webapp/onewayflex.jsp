@@ -15,7 +15,6 @@ try {
 	
 	ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();
-
 		
 	Statement st = con.createStatement();
 	String departure_date = request.getParameter("depart_date");
@@ -213,7 +212,6 @@ try {
 		<br />
 		<%
 	}
-
 	
 	db.closeConnection(con);
 	

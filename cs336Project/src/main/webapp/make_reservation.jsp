@@ -43,6 +43,9 @@ if(session.getAttribute("type").equals("R")) { %>
 	
 }
 %>
+<br/>
+<br/>
+<a href="flightsearch.jsp">Search For Flights Here!</a>
 </form>
 </body>
 </html>

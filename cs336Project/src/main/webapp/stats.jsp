@@ -26,6 +26,9 @@ if(request.getParameter("command").equals("Sales Report")) {
 		double total = 0;
 		ResultSet res = st.executeQuery("select * from ticket where month(purchase_time) = " + month);
 		while(res.next()) {
+			out.print("The revenue from Ticket " + res.getString("number") + " is: " + res.getString("total_fare")); %>
+			<br/>
+			<%
 			total = total + Double.valueOf(res.getString("total_fare"));
 		}
 		out.println("The total money made last month from ticket sales is: " + String.valueOf(total)); %>
@@ -63,7 +66,7 @@ else if(request.getParameter("command").equals("Generate By Flight Number")) {
 	Connection con = db.getConnection();
 	Statement st = con.createStatement();
 	String fnum = request.getParameter("fnum");
-	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.number = tf.number where flight_number =" + fnum);
+	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf using(number) where flight_number =" + fnum);
 	ResultSetMetaData resmeta = res.getMetaData();
 	int cols = resmeta.getColumnCount();
 	out.print("The following is a list of Reservations with the Flight Number: " + fnum); %>
@@ -71,6 +74,7 @@ else if(request.getParameter("command").equals("Generate By Flight Number")) {
 	<% 
 	while(res.next()) {
 		%>
+		<br/>
 		<br/>
 		<%
 		for(int i = 1; i <= cols; i++) {
@@ -82,12 +86,24 @@ else if(request.getParameter("command").equals("Generate Flight Revenue")) {
 	ApplicationDB db = new ApplicationDB();
 	Connection con = db.getConnection();
 	String fnum = request.getParameter("fnum2");
+	String id = request.getParameter("id");
 	Statement st = con.createStatement();
-	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.number = tf.number where flight_number =" + fnum);
-	double total = 0;
+	Statement st1 = con.createStatement();
+	Statement st2 = con.createStatement();
+	Statement st3 = con.createStatement();
+	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.number = tf.number where flight_number =" + fnum + " and airline_id = '" + id + "'");
+	ResultSet res1 = st1.executeQuery("select count(*) as count from(select * from ticket t join ticket_for tf using(number) where flight_number =" + fnum +  " and airline_id ='" + id + "' and total_fare <> 10) as f");
+	ResultSet res2 = st2.executeQuery("select count(*) as count from(select * from ticket t join ticket_for tf using(number) where flight_number =" + fnum +  " and airline_id ='" + id + "' and total_fare = 10) as f");
+	ResultSet res3 = st3.executeQuery("select * from flight where flight_number=" + fnum + " and airline_id= '" + id + "'");
+	res1.next();
+	res2.next();
+	res3.next();
+	double total = res1.getInt("count") * res3.getFloat("price") + 10 * res2.getInt("count");
+	out.print("This flight was part of: "); %>
+	<br/>
+	<%
 	while(res.next()) {
-		total = total + Double.valueOf(res.getString("total_fare"));
-		out.print("The revenue from ticket number " + res.getString("number") + " is " + res.getString("total_fare")); %>
+		out.print("Ticket " + res.getString("number")); %>
 		<br/>
 		<%
 	}
@@ -105,7 +121,7 @@ else if(request.getParameter("command").equals("Generate Airline Revenue")) {
 	Connection con = db.getConnection();
 	String airline_id = request.getParameter("airline_id");
 	Statement st = con.createStatement();
-	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.number = tf.number where tf.airline_id='" + airline_id + "'");
+	ResultSet res = st.executeQuery("select distinct(number),total_fare from ticket t join ticket_for tf using(number) where tf.airline_id='" + airline_id + "'");
 	double total = 0;
 	while(res.next()) {
 		total = total + Double.valueOf(res.getString("total_fare"));
@@ -127,7 +143,7 @@ else if(request.getParameter("command").equals("Generate Customer Revenue")) {
 	Connection con = db.getConnection();
 	String customer_id = request.getParameter("customer_id");
 	Statement st = con.createStatement();
-	ResultSet res = st.executeQuery("select * from ticket t join ticket_for tf on t.number = tf.number where t.id_number=" + customer_id);
+	ResultSet res = st.executeQuery("select * from ticket t  where t.id=" + customer_id);
 	double total = 0;
 	while(res.next()) {
 		total = total + Double.valueOf(res.getString("total_fare"));

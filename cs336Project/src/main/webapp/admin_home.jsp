@@ -24,13 +24,13 @@ User Manipulation:
 Obtain Sales Report for a Particular Month(Enter a number from 1-12. Must be two digits): <input type="text" name="month"/>
 <input type="submit" name="command" value="Sales Report"/>
 <br/>
-Generate Reservations by Flight Number: <input type="text" name="fnum"/> 
+Generate Reservations by Flight Number. Enter Flight Number: <input type="text" name="fnum"/>
 <input type="submit" name="command" value="Generate By Flight Number"/>
 <br/>
 Generate Reservations by Customer Name: First Name: <input type="text" name="fname"/> Last Name: <input type="text" name="lname"/> 
 <input type="submit" name="command" value="Generate By Customer Name"/>
 <br/>
-Generate Summary Revenue from a Flight(Enter Flight Number): <input type="text" name="fnum2"/> 
+Generate Summary Revenue from a Flight. Enter Flight number : <input type="text" name="fnum2"/> Enter Airline ID: <input type="text" name="id"/>
 <input type="submit" name="command" value="Generate Flight Revenue"/>
 <br/>
 Generate Summary Revenue from an Airline(Enter Airline ID): <input type="text" name="airline_id"/> 

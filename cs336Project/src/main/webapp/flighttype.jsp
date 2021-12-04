@@ -12,7 +12,6 @@
 <body>
 
 <%
-
 try {
 	
 	if (request.getParameter("trip_type").equals("one_way_set")) {
@@ -97,13 +96,10 @@ try {
 		
 		<%
 	}
-
 }
-
 catch(Exception e) {
 	out.print(e);
 }
-
 %>
 
 </body>
