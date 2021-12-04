@@ -1,0 +1,16 @@
+aircraft(aircraft_id: int, operating_days: varchar(50), airline_id: varchar(2), numseats_first: int, numseats_business: int, numseats_economy: int, 
+         primary key(aircraft_id), foreign key(airline_id) references airline_company);
+airline_company(airline_id: varchar(2), primary key(airline_id));
+airport(airport_id: varchar(3), primary key(airport_id));
+flight(flight_number: int, departure_time: datetime, arrival_time: datetime, departure_airport: varchar(50), destination_airport: varchar(50), isDomestic: tinyint(1),
+	isInternational: tinyint(1), airport_id: varchar(3), aircraft_id: int, airline_id: varchar(2), price: float, primary key(airline_id, flight_number),
+	foreign key(airport_id) references airport, foreign key(aircraft_id) references aircraft, foreign key(airline_id) references airline_company);
+questions(qid: int, question: varchar(1000), id: int, answer: varchar(1000), primary key(qid), foreign key(id) references user);
+ticket(number: int, booking_fee: float, purchase_time: datetime, first_name: varchar(50), last_name: varchar(50), total_fare: float, isOne_way: tinyint(1), isRound_trip: tinyint(1),
+	id: int, primary key(number), foreign key(id) references user);
+ticket_for(number: int, flight_number: int, airline_id: varchar(2), class: varchar(10), destination_airport: varchar(50), departure_airport: varchar(50), seat_number: int,
+	   airline: varchar(50), departure_time: datetime, primary key(airline_id, flight_number, number), foreign key(number) references ticket,
+	   foreign key(airline_id, flight_number) references flight);
+user(id: int, username: varchar(30), password: varchar(30), type: char(1), first_name: varchar(50), last_name: varchar(50), primary key(id));
+waiting_list(id: int, airline_id: varchar(2), flight_number: int, primary key(flight_number, airline_id, id), foreign key(airline_id, flight_number) references flight, 
+	     foreign key(id) references user);
