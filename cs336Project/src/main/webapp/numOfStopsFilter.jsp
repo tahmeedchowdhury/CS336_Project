@@ -120,7 +120,7 @@ try {
 		<br/>
 		<%out.println("Aircraft: " + res2.getString("t2.aircraft_id")); %>
 		<br/>
-		<%out.println("Total Price: " + res2.getInt("t1.price") + res2.getInt("t2.price")); %>
+		<%out.println("Total Price: " + (Integer.parseInt(res2.getString("t1.price")) + Integer.parseInt(res2.getString("t2.price")))); %>
 		<br />
 		<br />
 		
@@ -138,7 +138,7 @@ try {
 		st4.executeUpdate("create temporary table s1 select * from flight where departure_airport = '" + departure_airport + "' and destination_airport <> '" + arrival_airport + "'");
 		st5.executeUpdate("create temporary table s2 select * from flight where destination_airport <> '" + arrival_airport + "'");
 		st6.executeUpdate("create temporary table s3 select * from flight where destination_airport = '" + arrival_airport + "'");
-		ResultSet res3 = st7.executeQuery("select * from s1, s2, s3 where s1.destination_airport = s2.departure_airport and s2.departure_time > s1.arrival_time and s2.destination_airport = s3.departure_airport and s3.departure_time > s2.arrival_time"); %>
+		ResultSet res3 = st7.executeQuery("select * from s1, s2, s3 where s1.destination_airport = s2.departure_airport and s2.departure_time > s1.arrival_time and s2.destination_airport = s3.destination_airport and s3.departure_time > s2.arrival_time"); %>
 		
 		<p>Two Stop Flights</p>
 		
@@ -218,7 +218,7 @@ try {
 			<br/>
 			<%out.println("Aircraft: " + res3.getString("s3.aircraft_id")); %>
 			<br />
-			<%out.println("Total Price: " + res3.getString("s1.price") + res3.getString("s2.price") + res3.getString("s3.price")); %>
+			<%out.println("Total Price: " + (Integer.parseInt(res3.getString("s1.price")) + Integer.parseInt(res3.getString("s2.price")) + Integer.parseInt(res3.getString("s3.price")))); %>
 			<br />
 			<br />
 			<%
@@ -229,6 +229,7 @@ try {
 	db.closeConnection(con);
 	
 }
+
 catch (Exception e) {
 	out.print(e);
 }

@@ -291,7 +291,7 @@ try {
 		<br/>
 		<%out.println("Destination Airport: " + res4.getString("a3.destination_airport")); %>
 		<br/>
-		<%if(res3.getString("a3.isDomestic").equals("1")) {
+		<%if(res4.getString("a3.isDomestic").equals("1")) {
 			out.println("Domestic Flight"); 
 			}
 			else {
