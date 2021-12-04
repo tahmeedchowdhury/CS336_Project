@@ -52,8 +52,6 @@ try {
 		<br/>
 		<%out.println("Aircraft: " + res.getString("t1.aircraft_id")); %>
 		<br />
-		<%out.println("Price: " + res.getString("price")); %>
-		<br />
 		<br />
 		<% 
 		
@@ -80,7 +78,7 @@ try {
 		<br/>
 		<%out.println("Aircraft: " + res.getString("t2.aircraft_id")); %>
 		<br />
-		<%out.println("Price: " + res.getString("price")); %>
+		<%out.println("Price: " + (Integer.parseInt(res.getString("t1.price")) + Integer.parseInt(res.getString("t2.price")))); %>
 		<br />
 		<br /> <%
 	}
@@ -101,7 +99,7 @@ try {
 	
 	<p>One Stop Flights</p>
 	
-	<% while(res2.next()) {
+	<% while(res2.next() && res3.next()) {
 		out.print("Flight Number: " + res2.getString("s1.flight_number")); %>
 		<br/>
 		<%out.println("Departure Time: " + res2.getString("s1.departure_time")); %> 
@@ -149,15 +147,13 @@ try {
 	<%out.println("Airport: " + res2.getString("s2.airport_id")); %>
 	<br/>
 	<%out.println("Aircraft: " + res2.getString("s2.aircraft_id")); %>
+	
 	<br/>
-	<%out.println("Total Price: " + res2.getInt("s1.price") + res2.getInt("s2.price")); %>
 	<br />
-	<br />
-	<%}%>
 	
 	Returning Flight
 	
-	<%while(res3.next()) {
+	<%
 		out.print("Flight Number: " + res3.getString("r1.flight_number")); %>
 		<br/>
 		<%out.println("Departure Time: " + res3.getString("r1.departure_time")); %> 
@@ -206,7 +202,7 @@ try {
 	<br/>
 	<%out.println("Aircraft: " + res3.getString("r2.aircraft_id")); %>
 	<br/>
-	<%out.println("Total Price: " + res3.getInt("r1.price") + res3.getInt("r2.price")); %>
+	<%out.println("Total Price: " + (Integer.parseInt(res3.getString("r1.price")) + Integer.parseInt(res3.getString("r2.price")) + Integer.parseInt(res2.getString("s1.price")) + Integer.parseInt(res2.getString("s2.price")))); %>
 	<br />
 	<br /> <%
 	}
@@ -231,7 +227,7 @@ try {
 	
 	<p>Two Stop Flights</p>
 	
-	<% while(res4.next()) {
+	<% while(res4.next() && res5.next()) {
 		out.print("Flight Number: " + res4.getString("a1.flight_number")); %>
 		<br/>
 		<%out.println("Departure Time: " + res4.getString("a1.departure_time")); %> 
@@ -307,13 +303,11 @@ try {
 		<br/>
 		<%out.println("Aircraft: " + res4.getString("a3.aircraft_id")); %>
 		<br />
-		<%out.println("Total Price: " + res4.getString("a1.price") + res4.getString("a2.price") + res4.getString("a3.price")); %>
 		<br />
-		<br />
-		<%
-		}
 		
-		while(res5.next()) {
+		Returning Flights
+		
+		<%
 			out.print("Flight Number: " + res5.getString("b1.flight_number")); %>
 			<br/>
 			<%out.println("Departure Time: " + res5.getString("b1.departure_time")); %> 
@@ -389,7 +383,7 @@ try {
 			<br/>
 			<%out.println("Aircraft: " + res5.getString("b3.aircraft_id")); %>
 			<br />
-			<%out.println("Total Price: " + res5.getString("b1.price") + res5.getString("b2.price") + res5.getString("b3.price")); %>
+			<%out.println("Total Price: " + (Integer.parseInt(res4.getString("a1.price")) + Integer.parseInt(res4.getString("a2.price")) + Integer.parseInt(res4.getString("a3.price")) + Integer.parseInt(res5.getString("b1.price")) + Integer.parseInt(res5.getString("b2.price")) + Integer.parseInt(res5.getString("b3.price")))); %>
 			<br />
 			<br />
 		
@@ -397,7 +391,10 @@ try {
 	
 	
 	db.closeConnection(con);
+
 }
+
+
 catch (Exception e) {
 	out.print(e);
 }

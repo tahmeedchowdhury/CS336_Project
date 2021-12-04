@@ -117,7 +117,7 @@ try {
 	<br/>
 	<%out.println("Aircraft: " + res2.getString("t2.aircraft_id")); %>
 	<br/>
-	<%out.println("Total Price: " + res2.getInt("t1.price") + res2.getInt("t2.price")); %>
+	<%out.println("Total Price: " + (Integer.parseInt(res2.getString("t1.price")) + Integer.parseInt(res2.getString("t2.price")))); %>
 	<br />
 	<br />
 	
@@ -211,7 +211,7 @@ try {
 		<br/>
 		<%out.println("Aircraft: " + res3.getString("s3.aircraft_id")); %>
 		<br />
-		<%out.println("Total Price: " + res3.getString("s1.price") + res3.getString("s2.price") + res3.getString("s3.price")); %>
+		<%out.println("Total Price: " + ((Integer.parseInt(res3.getString("s1.price")) + Integer.parseInt(res3.getString("s2.price")) + Integer.parseInt(res3.getString("s3.price"))))); %>
 		<br />
 		<br />
 		<%
@@ -221,6 +221,7 @@ try {
 	db.closeConnection(con);
 	
 }
+
 catch (Exception e) {
 	out.print(e);
 }
