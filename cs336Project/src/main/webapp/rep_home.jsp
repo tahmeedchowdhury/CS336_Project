@@ -11,7 +11,10 @@ Hi there customer Representative <%=session.getAttribute("user")%>
 <a href="logout.jsp">Log Out</a>
 <br/>
 <form method="post" action=rep_functions.jsp>
-Make A Flight Reservation on Behalf of Another user:<input type="submit" name="command" value="Make Rservations"/>
+Make A Flight Reservation on Behalf of Another user:<input type="submit" name="command" value="Make Reservations"/>
+<br/>
+<br/>
+Edit A User's Flight Reservations: <input type="submit" name="command" value="Edit Reservations"/>
 <br/>
 <br/>
 Add, Edit, Or Delete Airports: <input type="submit" name="command" value="Add Airport"/> <input type="submit" name="command" value="Edit Airport"/> <input type="submit" name="command" value="Delete Airport"/>

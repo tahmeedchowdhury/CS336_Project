@@ -15,7 +15,6 @@ try {
 	
 	ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();
-
 		
 	Statement st = con.createStatement();
 	String departure_date = request.getParameter("depart_date");
@@ -128,7 +127,7 @@ try {
 	st4.executeUpdate("create temporary table s1 select * from flight where DATE(DATE_ADD(departure_time, INTERVAL 3 DAY)) >= '" + departure_date + "' and DATE(DATE_ADD(departure_time, INTERVAL -3 DAY)) <= '" + departure_date + "' and departure_airport = '" + departure_airport + "' and destination_airport <> '" + arrival_airport + "'");
 	st5.executeUpdate("create temporary table s2 select * from flight where destination_airport <> '" + arrival_airport + "'");
 	st6.executeUpdate("create temporary table s3 select * from flight where destination_airport = '" + arrival_airport + "'");
-	ResultSet res3 = st7.executeQuery("select * from s1, s2, s3 where s1.destination_airport = s2.departure_airport and s2.departure_time > s1.arrival_time and s2.destination_airport = s3.destination_airport and s3.departure_time > s2.arrival_time"); %>
+	ResultSet res3 = st7.executeQuery("select * from s1, s2, s3 where s1.destination_airport = s2.departure_airport and s2.departure_time > s1.arrival_time and s2.destination_airport = s3.departure_airport and s3.departure_time > s2.arrival_time"); %>
 	
 	<p>Two Stop Flights</p>
 	
@@ -213,7 +212,6 @@ try {
 		<br />
 		<%
 	}
-
 	
 	db.closeConnection(con);
 	

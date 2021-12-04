@@ -145,7 +145,7 @@ else if(request.getParameter("command").equals("Delete Aircraft")) {
 else if(request.getParameter("command").equals("Retrieve Waiting List")) {
 	%>
 	<form method="post" action=rep_changes.jsp>
-	Flight Number to Retrieve Waiting List For : <input type="text" name="fnum"/>
+	Flight Number to Retrieve Waiting List For : <input type="text" name="fnum"/> Airline ID: <input type="text" name="id"/>
 	<input type="submit" name="command" value="Retrieve Waiting List"/>
 	</form>
 	<%
@@ -182,6 +182,50 @@ else if(request.getParameter("command").equals("Reply")) {
 	out.print("Answer : " + res.getString("answer"));
 	}
 	%>
+	</form>
+	<%
+}
+else if(request.getParameter("command").equals("Make Reservations")) { %>
+	<form method="post" action=reserve.jsp>
+	Please enter the user ID and name of the person you wish to make a reservation for:
+	<br/>
+	First Name: <input type="text" name="fname"/>
+	Last Name: <input type="text" name="lname"/>
+	ID: <input type="text" name="id"/>
+	<input type="submit" name="command" value="Make Reservation"/>
+	</form>
+	<%
+}
+
+else if(request.getParameter("command").equals("Edit Reservations")) { %>
+	Please enter the information you want to change. Any field left blank will not be changed.
+	<br/>
+	<form method="post" action="rep_changes.jsp">
+	Ticket Number to edit: <input type="number" name="number"/>
+	<br/>
+	<br/>
+	Please note, in order to edit the class and price of a reservation, you must input all indicated values including the seat number you are moving the 
+	customer to, the class, as well as the flight and airline ID of the flight you wish to make this edit for. 
+	<br/>
+	<br/>
+	Seat Number: <input type="number" name="seatnum"/> Specific Flight Number for Seat Number: <input type="number" name="fnum"/> Specific Airline ID for Seat Number: <input type="text" name="id"/>
+	<br/>
+	Ticket Class:<select name='class'>
+<option value=""></option>
+<option value='first'>First</option>
+<option value='business'>Business</option>
+<option value='economy'>Economy</option>
+</select>
+<br/>
+<br/>
+	Total Fare: <input type="number" name="total_fare"/>
+	Booking Fee: <input type="number" name="fee"/>
+	<br/>
+	<br/>
+	Purchase Date: <input type="datetime-local" name="purchase_date" min="2000-01-01 00:00:00" max="2030-12-31 12:00:00"/>
+	<br/>
+	<br/>
+	<input type="submit" name="command" value="Edit Reservation"/>
 	</form>
 	<%
 }

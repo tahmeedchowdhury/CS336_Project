@@ -15,7 +15,15 @@
 <form method="post" action=flights.jsp>
 <input type="submit" name="command" value="Check Flights"/>
 </form>
-<br />
+<br/>
+<form method="post" action=flightsearch.jsp>
+<input type="submit" name="command" value="Search for A Flight"/>
+</form>
+<br/>
+<form method="post" action=filterhome.jsp>
+<input type="submit" name="command" value="Filter/Sort Flights Based on Criteria"/>
+</form>
+<br/>
 <form method="post" action=questions.jsp>
 <input type="submit" name="command" value="Ask a Question"/>
 </form>
@@ -33,10 +41,6 @@
 <br/>
 <form method="post" action=cancel_reservation.jsp>
 <input type="submit" name="command" value="Cancel A Reservation"/>
-</form>
-<br/>
-<form method="post" action=filterhome.jsp>
-<input type="submit" name="command" value="Sort/Filter Flights"/>
 </form>
 <br/>
 <a href='logout.jsp'>Log out</a>

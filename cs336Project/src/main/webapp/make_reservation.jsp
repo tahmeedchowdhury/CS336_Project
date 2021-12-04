@@ -34,6 +34,18 @@ else {
 <%}
 %>
 <input type="hidden" name="class" value=<%=request.getParameter("class") %> />
+<%
+if(session.getAttribute("type").equals("R")) { %>
+<input type="hidden" name="fname" value=<%=request.getParameter("fname") %> />
+<input type="hidden" name="lname" value=<%=request.getParameter("lname") %> />
+<input type="hidden" name="rid" value=<%=request.getParameter("id") %> />
+<% 
+	
+}
+%>
+<br/>
+<br/>
+<a href="flightsearch.jsp">Search For Flights Here!</a>
 </form>
 </body>
 </html>
