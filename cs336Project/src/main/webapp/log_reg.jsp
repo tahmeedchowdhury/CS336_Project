@@ -37,6 +37,9 @@ if(request.getParameter("command").equals("Log In")) {
 	 }
 }
 else {
+	if(un.length() == 0 || pass.length() == 0){
+		out.println("Enter a valid value for username and password");
+	}else{
 	if(res2.next()) {
 		out.println("Sorry, that username and/or password is already taken. Please try again");
 		 out.println("<a href='index.jsp'>Back to Login Page</a>");
@@ -55,7 +58,7 @@ else {
 	out.println("Congratulations, you have been successfully registered. You may log in now");
 	out.println("<a href='index.jsp'>Back to Login Page</a>");
 	}
-
+}
 }
  } 
  catch(Exception e) {
